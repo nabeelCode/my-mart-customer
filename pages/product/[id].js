@@ -1,4 +1,8 @@
 
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/router'
+
 // Import Swiper React components
 import { EffectFade, Autoplay, Navigation, Pagination } from 'swiper';
 import 'swiper/css';
@@ -6,14 +10,16 @@ import 'swiper/css/effect-fade';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Gallery1 from "../../public/images/gallery3.jpeg"
-
 // Import Swiper styles
 import 'swiper/css';
 import "swiper/css/pagination";
-import Image from 'next/image';
-import Link from 'next/link';
+import {FaArrowLeft } from "react-icons/fa"
 
 export default function ProductDetail() {
+    const router = useRouter()
+
+    const goBack = () => router.back()
+
     return (
         <>
             <div className="grid gap-2 p-2 px-3">
@@ -69,8 +75,6 @@ export default function ProductDetail() {
                         </div>
                         <div className="z-10 absolute h-full w-full  bg-gradient-to-black from-white top-0" />
                     </SwiperSlide>
-
-
                 </Swiper>
                 <div>
                     Product Name
@@ -127,6 +131,10 @@ export default function ProductDetail() {
                         </div>
                     </div>
                 </div>
+            </div>
+            {/* fixed parts */}
+            <div onClick={goBack} className="fixed top-2 left-2 z-10 cursor-pointer shadow-normal p-1 bg-white rounded-full">
+                    <FaArrowLeft  />
             </div>
             <Link href="/cart">
                 <a>

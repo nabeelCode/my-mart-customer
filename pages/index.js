@@ -42,18 +42,20 @@ const products = [
 export default function Home() {
   return (
     <>
-      <div className="grid gap-4 p-2 justify-center">
-        <div className="flex justify-between">
+      <div className="grid gap-1 justify-center bg-primary">
+        <div className="flex justify-between items-center bg-white text-primary p-2 text-lg font-semibold">
           <div>
-            <AiOutlineShop size="1.2rem" />
+            <AiOutlineShop size="1.5rem" />
           </div>
           <div>WhatsDeliver</div>
           <div>
             <FaShareAlt size="1.2rem" />
           </div>
         </div>
-        {/* <div> */}
-        {/* <Swiper
+        <div className="grid gap-2 p-2">
+
+          {/* <div> */}
+          {/* <Swiper
         modules={[EffectFade, Autoplay, Navigation, Pagination]}
         loop
         effect='fade'
@@ -79,164 +81,167 @@ export default function Home() {
             slide 3
           </SwiperSlide>
       </Swiper> */}
-        <Swiper
-          pagination={{
-            dynamicBullets: true,
-          }}
-          modules={[Pagination]}
-          spaceBetween={10}
-          className="max-w-full"
-        >
-          <SwiperSlide className="w-auto">
-            <div className="grid h-[180px]">
-              <Image
-                alt="gallery"
-                src={Gallery1}
-                // height="680px"
-                className="shadow rounded-lg"
-              />
-            </div>
-            <div className="z-10 absolute h-full w-full  bg-gradient-to-black from-white top-0" />
-          </SwiperSlide>
-          <SwiperSlide className="w-auto">
-            <div className="grid h-[180px]">
-              <Image
-                alt="gallery"
-                src={Gallery1}
-                // height="680px"
-                className="shadow rounded-lg"
-              />
-            </div>
-            <div className="z-10 absolute h-full w-full  bg-gradient-to-black from-white top-0" />
-          </SwiperSlide>
-          <SwiperSlide className="w-auto">
-            <div className="grid h-[180px]">
-              <Image
-                alt="gallery"
-                src={Gallery1}
-                // height="680px"
-                className="shadow rounded-lg"
-              />
-            </div>
-            <div className="z-10 absolute h-full w-full  bg-gradient-to-black from-white top-0" />
-          </SwiperSlide>
-          <SwiperSlide className="w-auto">
-            <div className="grid h-[180px]">
-              <Image
-                alt="gallery"
-                src={Gallery1}
-                // height="680px"
-                className="shadow rounded-lg"
-              />
-            </div>
-            <div className="z-10 absolute h-full w-full  bg-gradient-to-black from-white top-0" />
-          </SwiperSlide>
-
-
-        </Swiper>
-        {/* </div> */}
-        <div className="flex overflow-scroll no-scrollbar space-x-2 py-2">
-          {
-            categories.map((item, index) => (
-              <div key={index} className="p-3 px-6 shadow-normal rounded-md whitespace-nowrap">
-                {item}
+          <Swiper
+            pagination={{
+              dynamicBullets: true,
+            }}
+            modules={[Pagination]}
+            spaceBetween={10}
+            className="max-w-full"
+          >
+            <SwiperSlide className="w-auto">
+              <div className="grid h-[180px]">
+                <Image
+                  alt="gallery"
+                  src={Gallery1}
+                  // height="680px"
+                  className="shadow rounded-lg"
+                />
               </div>
-            ))
-          }
+              <div className="z-10 absolute h-full w-full  bg-gradient-to-black from-white top-0" />
+            </SwiperSlide>
+            <SwiperSlide className="w-auto">
+              <div className="grid h-[180px]">
+                <Image
+                  alt="gallery"
+                  src={Gallery1}
+                  // height="680px"
+                  className="shadow rounded-lg"
+                />
+              </div>
+              <div className="z-10 absolute h-full w-full  bg-gradient-to-black from-white top-0" />
+            </SwiperSlide>
+            <SwiperSlide className="w-auto">
+              <div className="grid h-[180px]">
+                <Image
+                  alt="gallery"
+                  src={Gallery1}
+                  // height="680px"
+                  className="shadow rounded-lg"
+                />
+              </div>
+              <div className="z-10 absolute h-full w-full  bg-gradient-to-black from-white top-0" />
+            </SwiperSlide>
+            <SwiperSlide className="w-auto">
+              <div className="grid h-[180px]">
+                <Image
+                  alt="gallery"
+                  src={Gallery1}
+                  // height="680px"
+                  className="shadow rounded-lg"
+                />
+              </div>
+              <div className="z-10 absolute h-full w-full  bg-gradient-to-black from-white top-0" />
+            </SwiperSlide>
+
+
+          </Swiper>
+          {/* </div> */}
         </div>
-        <div className="grid gap-4">
-          <Link href="/product/1">
-            <a>
-              <div className="grid items-center gap-2 grid-cols-8 shadow-normal rounded-md p-2 py-4">
-                <div className="col-span-3">
-                  <Image
-                    src={One}
-                    alt="pro"
-                  />
+        <div className="grid gap-4 bg-white pt-8 rounded-tr-3xl rounded-tl-3xl">
+          <div className="flex overflow-scroll no-scrollbar space-x-2 py-2">
+            {
+              categories.map((item, index) => (
+                <div key={index} className="p-3 px-6 rounded-md whitespace-nowrap border-[1px] border-gray-200">
+                  {item}
                 </div>
-                <div className="grid col-span-5 gap-2 rounded-md">
-                  <div className="font-semibold">
-                    Product Name
+              ))
+            }
+          </div>
+          <div className="grid gap-2 px-3">
+            <Link href="/product/1">
+              <a>
+                <div className="grid items-center gap-2 grid-cols-8 border-[1px] border-gray-200 rounded-md p-2 py-4">
+                  <div className="col-span-3">
+                    <Image
+                      src={One}
+                      alt="pro"
+                    />
                   </div>
-                  <div className="text-xs text-gray-500">
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s,
-                  </div>
-                  <div className="p-2 bg-primary rounded-md text-white">
-                    Price:
-                  </div>
-                </div>
-              </div>
-            </a>
-          </Link>
-          <Link href="/product/1">
-            <a>
-              <div className="grid items-center gap-2 grid-cols-8 shadow-normal rounded-md p-2 py-4">
-                <div className="col-span-3">
-                  <Image
-                    src={One}
-                    alt="pro"
-                  />
-                </div>
-                <div className="grid col-span-5 gap-2 rounded-md">
-                  <div className="font-semibold">
-                    Product Name
-                  </div>
-                  <div className="text-xs text-gray-500">
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s,
-                  </div>
-                  <div className="p-2 bg-primary rounded-md text-white">
-                    Price:
+                  <div className="grid col-span-5 gap-2 rounded-md">
+                    <div className="font-semibold">
+                      Product Name
+                    </div>
+                    <div className="text-xs text-gray-500">
+                      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s,
+                    </div>
+                    <div className="">
+                      Price:
+                    </div>
                   </div>
                 </div>
-              </div>
-            </a>
-          </Link>
-          <Link href="/product/1">
-            <a>
-              <div className="grid items-center gap-2 grid-cols-8 shadow-normal rounded-md p-2 py-4">
-                <div className="col-span-3">
-                  <Image
-                    src={One}
-                    alt="pro"
-                  />
-                </div>
-                <div className="grid col-span-5 gap-2 rounded-md">
-                  <div className="font-semibold">
-                    Product Name
+              </a>
+            </Link>
+            <Link href="/product/1">
+              <a>
+                <div className="grid items-center gap-2 grid-cols-8 border-[1px] border-gray-200 rounded-md p-2 py-4">
+                  <div className="col-span-3">
+                    <Image
+                      src={One}
+                      alt="pro"
+                    />
                   </div>
-                  <div className="text-xs text-gray-500">
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s,
-                  </div>
-                  <div className="p-2 bg-primary rounded-md text-white">
-                    Price:
-                  </div>
-                </div>
-              </div>
-            </a>
-          </Link>
-          <Link href="/product/1">
-            <a>
-              <div className="grid items-center gap-2 grid-cols-8 shadow-normal rounded-md p-2 py-4">
-                <div className="col-span-3">
-                  <Image
-                    src={One}
-                    alt="pro"
-                  />
-                </div>
-                <div className="grid col-span-5 gap-2 rounded-md">
-                  <div className="font-semibold">
-                    Product Name
-                  </div>
-                  <div className="text-xs text-gray-500">
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s,
-                  </div>
-                  <div className="p-2 bg-primary rounded-md text-white">
-                    Price:
+                  <div className="grid col-span-5 gap-2 rounded-md">
+                    <div className="font-semibold">
+                      Product Name
+                    </div>
+                    <div className="text-xs text-gray-500">
+                      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s,
+                    </div>
+                    <div className="">
+                      Price:
+                    </div>
                   </div>
                 </div>
-              </div>
-            </a>
-          </Link>
+              </a>
+            </Link>
+            <Link href="/product/1">
+              <a>
+                <div className="grid items-center gap-2 grid-cols-8 border-[1px] border-gray-200 rounded-md p-2 py-4">
+                  <div className="col-span-3">
+                    <Image
+                      src={One}
+                      alt="pro"
+                    />
+                  </div>
+                  <div className="grid col-span-5 gap-2 rounded-md">
+                    <div className="font-semibold">
+                      Product Name
+                    </div>
+                    <div className="text-xs text-gray-500">
+                      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s,
+                    </div>
+                    <div className="">
+                      Price:
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </Link>
+            <Link href="/product/1">
+              <a>
+                <div className="grid items-center gap-2 grid-cols-8 border-[1px] border-gray-200 rounded-md p-2 py-4">
+                  <div className="col-span-3">
+                    <Image
+                      src={One}
+                      alt="pro"
+                    />
+                  </div>
+                  <div className="grid col-span-5 gap-2 rounded-md">
+                    <div className="font-semibold">
+                      Product Name
+                    </div>
+                    <div className="text-xs text-gray-500">
+                      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s,
+                    </div>
+                    <div className="">
+                      Price:
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </Link>
+          </div>
         </div>
 
       </div>

@@ -1,11 +1,20 @@
-export default function checkout() {
+
+import { useRouter } from 'next/router'
+
+import { FaArrowLeft } from "react-icons/fa"
+
+export default function Checkout() {
+    const router = useRouter()
+
+    const goBack = () => router.back()
+
     return (
         <>
-            <div className="flex flex-col h-screen space-y-2 justify-items-center">
-                <div className="p-2 text-center">
+            <div className="flex flex-col h-screen space-y-2 pt-2 justify-items-center bg-primary">
+                <div className="p-2 text-center text-white text-xl font-semibold">
                     Checkout
                 </div>
-                <div className="grid gap-4 bg-gray-100 p-2 pt-8 rounded-tr-3xl rounded-tl-3xl w-full">
+                <div className="flex flex-col space-y-4 h-full bg-gray-100 p-2 pt-8 rounded-tr-3xl rounded-tl-3xl w-full">
                     <div className="rounded-md p-2 bg-white">
                         <input placeholder="Customer Name" className="w-full" />
                     </div>
@@ -36,6 +45,10 @@ export default function checkout() {
                         </div>
                     </div>
                 </div>
+            </div>
+            {/* fixed parts */}
+            <div onClick={goBack} className="fixed top-4 left-2 z-10 cursor-pointer shadow-normal p-1 bg-white rounded-full">
+                <FaArrowLeft />
             </div>
             <div className="fixed bottom-1 ml-2 shadow-normal flex justify-between bg-primary w-[96%] sm:w-[32%] text-white p-2 rounded-md">
                 <div>8</div>

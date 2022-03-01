@@ -1,13 +1,20 @@
 import Image from "next/image"
 import Link from "next/link"
+import { useRouter } from 'next/router'
+
 import One from "../public/images/prod.jpeg"
+import { FaArrowLeft } from "react-icons/fa"
 
 export default function Cart() {
+    const router = useRouter()
+
+    const goBack = () => router.push("/")
+    
     return (
         <>
-            <div className="flex flex-col h-screen space-y-2 justify-items-center">
-                <div className="p-2 text-center">Cart</div>
-                <div className="grid gap-4 bg-gray-100 p-2 pt-8 rounded-tr-3xl rounded-tl-3xl">
+            <div className="flex flex-col h-screen space-y-2 pt-2 justify-items-center bg-primary">
+                <div className="p-2 text-center text-white text-xl font-semibold">Cart</div>
+                <div className="flex flex-col h-full space-y-4 bg-gray-100 p-2 pt-8 rounded-tr-3xl rounded-tl-3xl">
                     <div className="grid grid-cols-12 gap-2 bg-white p-2 rounded-md">
                         <div className="col-span-4">
                             <Image
@@ -59,6 +66,10 @@ export default function Cart() {
                         </div>
                     </div>
                 </div>
+            </div>
+            {/* fixed parts */}
+            <div onClick={goBack} className="fixed top-4 left-2 z-10 cursor-pointer shadow-normal p-1 bg-white rounded-full">
+                <FaArrowLeft />
             </div>
             <Link href="/checkout">
                 <a>
