@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 import { FaShareAlt } from "react-icons/fa"
@@ -18,6 +19,7 @@ import 'swiper/css';
 import "swiper/css/pagination";
 
 import Link from 'next/link'
+import { getBanners, getCategories, getProducts } from '../config/api'
 
 const categories = [
   "cat 1",
@@ -39,10 +41,44 @@ const products = [
   }
 ]
 
-export default function Home() {
+export default function Home(props) {
+  const [products, setProducts] = useState(props?.products)
+  const [categoryFilter, setCategoryFilter] = useState({ filterStatus: false, catId: null })
+
+  const changeFilter = async (item) => {
+    const products = props?.products
+    if (categoryFilter.filterStatus) {
+      if (categoryFilter.catId === item._id) {
+        setCategoryFilter({
+          filterStatus: false,
+          catId: null
+        })
+        setProducts(products)
+      } else {
+        const filteredproducts = await products.filter(product => product.categories.find(cat => cat._id === item._id))
+        setCategoryFilter({
+          ...categoryFilter,
+          catId: item._id
+        })
+        setProducts(filteredproducts)
+      }
+    }
+    else {
+      const filteredproducts = await products.filter(product => product.categories.find(cat => cat._id === item._id))
+      setCategoryFilter({
+        filterStatus: true,
+        catId: item._id
+      })
+      setProducts(filteredproducts)
+    }
+  }
+
   return (
     <>
-      <div className="grid gap-1 justify-center bg-primary">
+      <div className="grid gap-1 justify-center bg-gray-300 mb-[3rem]">
+        {console.log("categories ", props.categories)}
+        {console.log("products ", products)}
+        {console.log("banners ", props.banners)}
         <div className="flex justify-between items-center bg-white text-primary p-2 text-lg font-semibold">
           <div>
             <AiOutlineShop size="1.5rem" />
@@ -53,34 +89,6 @@ export default function Home() {
           </div>
         </div>
         <div className="grid gap-2 p-2">
-
-          {/* <div> */}
-          {/* <Swiper
-        modules={[EffectFade, Autoplay, Navigation, Pagination]}
-        loop
-        effect='fade'
-        className='home-page-banner'
-        fadeEffect={{ crossFade: true }}
-        slidesPerView={1}
-        autoplay={{ delay: 3000 }}
-        navigation={{
-          nextEl: '.hps-right',
-          prevEl: '.hps-left',
-        }}
-        pagination={{
-          clickable: true,
-          bulletActiveClass: 'active-bullet',
-        }}>
-          <SwiperSlide >
-            slide 1
-          </SwiperSlide>
-          <SwiperSlide >
-            slide 2
-          </SwiperSlide>
-          <SwiperSlide >
-            slide 3
-          </SwiperSlide>
-      </Swiper> */}
           <Swiper
             pagination={{
               dynamicBullets: true,
@@ -138,111 +146,52 @@ export default function Home() {
           </Swiper>
           {/* </div> */}
         </div>
-        <div className="grid gap-4 bg-white pt-8 rounded-tr-3xl rounded-tl-3xl">
+        {/* <div className="grid gap-4 bg-white pt-8 rounded-tr-3xl rounded-tl-3xl"> */}
+
+        <div className="grid gap-2 px-3 bg-white pt-8 rounded-tr-3xl rounded-tl-3xl">
           <div className="flex overflow-scroll no-scrollbar space-x-2 py-2">
             {
-              categories.map((item, index) => (
-                <div key={index} className="p-3 px-6 rounded-md whitespace-nowrap border-[1px] border-gray-200">
-                  {item}
+              props?.categories.map((item, index) => (
+                <div key={index} onClick={() => changeFilter(item)} className={`p-3 px-6 rounded-md cursor-pointer whitespace-nowrap border-[1px] border-gray-200 ${categoryFilter.catId === item._id && ' bg-primary text-white'} `}>
+                  {item.cat_name}
                 </div>
               ))
             }
           </div>
-          <div className="grid gap-2 px-3">
-            <Link href="/product/1">
-              <a>
-                <div className="grid items-center gap-2 grid-cols-8 border-[1px] border-gray-200 rounded-md p-2 py-4">
-                  <div className="col-span-3">
-                    <Image
-                      src={One}
-                      alt="pro"
-                    />
-                  </div>
-                  <div className="grid col-span-5 gap-2 rounded-md">
-                    <div className="font-semibold">
-                      Product Name
+          {
+            products.length
+              ?
+              products.map((product, index) => (
+                <Link href="/product/1" key={index}>
+                  <a>
+                    <div className="grid items-center gap-2 grid-cols-8 border-[1px] border-gray-200 rounded-md p-2 py-4">
+                      <div className="col-span-3">
+                        <Image
+                          src={product?.image?.thumbnail_image_url}
+                          alt="pro"
+                          width={100}
+                          height={100}
+                        />
+                      </div>
+                      <div className="grid col-span-5 gap-2 rounded-md">
+                        <div className="font-semibold">
+                          {product?.product_name}
+                        </div>
+                        <div className="text-xs text-gray-500" dangerouslySetInnerHTML={{ __html: product?.description.substring(0, 100) + '...' }} />
+                        <div className="flex gap-1 ">
+                          Price: <span className="text-green-500">&#8377;{product?.specialPrice ?? product?.prod_price}</span>
+                          {product?.specialPrice && <span className="line-through text-red-500">{product?.prod_price}</span>}
+                        </div>
+                      </div>
                     </div>
-                    <div className="text-xs text-gray-500">
-                      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s,
-                    </div>
-                    <div className="">
-                      Price:
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </Link>
-            <Link href="/product/1">
-              <a>
-                <div className="grid items-center gap-2 grid-cols-8 border-[1px] border-gray-200 rounded-md p-2 py-4">
-                  <div className="col-span-3">
-                    <Image
-                      src={One}
-                      alt="pro"
-                    />
-                  </div>
-                  <div className="grid col-span-5 gap-2 rounded-md">
-                    <div className="font-semibold">
-                      Product Name
-                    </div>
-                    <div className="text-xs text-gray-500">
-                      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s,
-                    </div>
-                    <div className="">
-                      Price:
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </Link>
-            <Link href="/product/1">
-              <a>
-                <div className="grid items-center gap-2 grid-cols-8 border-[1px] border-gray-200 rounded-md p-2 py-4">
-                  <div className="col-span-3">
-                    <Image
-                      src={One}
-                      alt="pro"
-                    />
-                  </div>
-                  <div className="grid col-span-5 gap-2 rounded-md">
-                    <div className="font-semibold">
-                      Product Name
-                    </div>
-                    <div className="text-xs text-gray-500">
-                      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s,
-                    </div>
-                    <div className="">
-                      Price:
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </Link>
-            <Link href="/product/1">
-              <a>
-                <div className="grid items-center gap-2 grid-cols-8 border-[1px] border-gray-200 rounded-md p-2 py-4">
-                  <div className="col-span-3">
-                    <Image
-                      src={One}
-                      alt="pro"
-                    />
-                  </div>
-                  <div className="grid col-span-5 gap-2 rounded-md">
-                    <div className="font-semibold">
-                      Product Name
-                    </div>
-                    <div className="text-xs text-gray-500">
-                      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s,
-                    </div>
-                    <div className="">
-                      Price:
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </Link>
-          </div>
+                  </a>
+                </Link>
+              ))
+              :
+              "No Products"
+          }
         </div>
+        {/* </div> */}
 
       </div>
       <Link href="/cart">
@@ -256,4 +205,18 @@ export default function Home() {
       </Link>
     </>
   )
+}
+
+export async function getServerSideProps(context) {
+  const categories = await getCategories()
+  const products = await getProducts()
+  const banners = await getBanners()
+
+  return {
+    props: {
+      categories: categories,
+      products: products,
+      banners: banners
+    }
+  }
 }

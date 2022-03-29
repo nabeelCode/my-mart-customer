@@ -22,7 +22,7 @@ export default function ProductDetail() {
 
     return (
         <>
-            <div className="grid gap-2 p-2 px-3">
+            <div className="grid gap-2 p-2 px-3 mb-[3rem]">
                 <Swiper
                     pagination={{
                         dynamicBullets: true,
@@ -132,6 +132,7 @@ export default function ProductDetail() {
                     </div>
                 </div>
             </div>
+            
             {/* fixed parts */}
             <div onClick={goBack} className="fixed top-2 left-2 z-10 cursor-pointer shadow-normal p-1 bg-white rounded-full">
                     <FaArrowLeft  />

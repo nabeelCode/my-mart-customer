@@ -12,9 +12,51 @@ export default function Cart() {
     
     return (
         <>
-            <div className="flex flex-col h-screen space-y-2 pt-2 justify-items-center bg-primary">
+            <div className="flex flex-col h-full space-y-2 pt-2 justify-items-center bg-primary mb-[3rem]">
                 <div className="p-2 text-center text-white text-xl font-semibold">Cart</div>
                 <div className="flex flex-col h-full space-y-4 bg-gray-100 p-2 pt-8 rounded-tr-3xl rounded-tl-3xl">
+                    <div className="grid grid-cols-12 gap-2 bg-white p-2 rounded-md">
+                        <div className="col-span-4">
+                            <Image
+                                alt="product"
+                                src={One}
+                            />
+                        </div>
+                        <div className="grid col-span-8 text-xs gap-2">
+                            <div>Product Name</div>
+                            <div>Price</div>
+                            <div>Options:</div>
+                            <div>Addons:</div>
+                        </div>
+                    </div>
+                    <div className="grid grid-cols-12 gap-2 bg-white p-2 rounded-md">
+                        <div className="col-span-4">
+                            <Image
+                                alt="product"
+                                src={One}
+                            />
+                        </div>
+                        <div className="grid col-span-8 text-xs gap-2">
+                            <div>Product Name</div>
+                            <div>Price</div>
+                            <div>Options:</div>
+                            <div>Addons:</div>
+                        </div>
+                    </div>
+                    <div className="grid grid-cols-12 gap-2 bg-white p-2 rounded-md">
+                        <div className="col-span-4">
+                            <Image
+                                alt="product"
+                                src={One}
+                            />
+                        </div>
+                        <div className="grid col-span-8 text-xs gap-2">
+                            <div>Product Name</div>
+                            <div>Price</div>
+                            <div>Options:</div>
+                            <div>Addons:</div>
+                        </div>
+                    </div>
                     <div className="grid grid-cols-12 gap-2 bg-white p-2 rounded-md">
                         <div className="col-span-4">
                             <Image
