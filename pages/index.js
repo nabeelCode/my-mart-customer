@@ -78,7 +78,7 @@ export default function Home(props) {
       <div className="grid gap-1 justify-center bg-gray-300 mb-[3rem]">
         {console.log("categories ", props.categories)}
         {console.log("products ", products)}
-        {console.log("banners ", props.banners)}
+        {/* {console.log("banners ", props.banners)} */}
         <div className="flex justify-between items-center bg-white text-primary p-2 text-lg font-semibold">
           <div>
             <AiOutlineShop size="1.5rem" />
@@ -162,7 +162,7 @@ export default function Home(props) {
             products.length
               ?
               products.map((product, index) => (
-                <Link href="/product/1" key={index}>
+                <Link href={"/product/"+product._id} key={index}>
                   <a>
                     <div className="grid items-center gap-2 grid-cols-8 border-[1px] border-gray-200 rounded-md p-2 py-4">
                       <div className="col-span-3">
@@ -210,13 +210,13 @@ export default function Home(props) {
 export async function getServerSideProps(context) {
   const categories = await getCategories()
   const products = await getProducts()
-  const banners = await getBanners()
+  // const banners = await getBanners()
 
   return {
     props: {
       categories: categories,
       products: products,
-      banners: banners
+      // banners: banners
     }
   }
 }
