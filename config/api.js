@@ -31,3 +31,18 @@ export const getBanners = async () => {
   });
   return banners;
 };
+
+export const createGuest = async () => {
+  const customer = await axios({
+    method: "post",
+    url: "customer/createGuest",
+    data: {
+      business_slug: "rafa-1622047710288-4f77474c-8664-45fc-9c9f-95d94fe9dbdb",
+    },
+  });
+  return customer?.data?.data
+};
+
+// export const addToCart = async () => {
+//   const 
+// }

@@ -2,6 +2,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useCookies } from "react-cookie";
 
 // Import Swiper React components
 import { EffectFade, Autoplay, Navigation, Pagination } from "swiper";
@@ -18,22 +19,50 @@ import { getSingleProduct } from "../../config/api";
 
 export default function ProductDetail(props) {
   const router = useRouter();
-
+  const cookie = useCookies("customerId");
   const goBack = () => router.back();
 
   const product = props?.product;
   const [price, setPrice] = useState(
     product?.model?.specialPrice ?? product?.model?.price
   );
+  const [quantity, setQuantity] = useState(1);
+  const [optionId, setOptionId] = useState("");
 
   const onChangeValue = (option) => {
-    return () => setPrice(option?.specialPrice ?? option?.price);
+    return () => {
+      setPrice(option?.specialPrice ?? option?.price);
+      setOptionId(option?._id);
+    };
+  };
+
+  const addToCart = () => {
+    const prod = {
+      customerType: "Guest",
+      userId: cookie[0]?.customerId,
+      product: {
+        product_id: product?._id,
+        selection_type: product?.model?.selection_price_type,
+        selection_price_id: optionId,
+        quantity,
+      },
+    };
+    console.log("productz ",prod)
+  };
+
+  const changeQuantity = (type) => {
+    if (type === "inc") {
+      return () => setQuantity(quantity + 1);
+    } else if (type === "dec" && quantity > 1) {
+      return () => setQuantity(quantity - 1);
+    }
   };
 
   return (
     <>
       <div className="grid gap-2 p-2 px-3 mb-[3rem]">
         {console.log("product", product)}
+        {console.log("option", optionId)}
         <Swiper
           pagination={{
             dynamicBullets: true,
@@ -62,7 +91,7 @@ export default function ProductDetail(props) {
             <span className="line-through text-red-500">{price}</span>
           )}
         </div>
-        {
+        {product?.model?.selection_price_type === "selection_price" && (
           <div className="p-2 rounded-lg bg-gray-100 gap-2 grid">
             <div>Selection Price</div>
             <div className="grid gap-1">
@@ -80,7 +109,22 @@ export default function ProductDetail(props) {
               ))}
             </div>
           </div>
-        }
+        )}
+        <div className="grid grid-cols-8 gap-2 items-center">
+          <div className="flex justify-between gap-2 p-2 bg-gray-300 rounded-md col-span-2">
+            <div className="cursor-pointer" onClick={changeQuantity("dec")}>
+              -
+            </div>
+            <div>{quantity}</div>
+            <div className="cursor-pointer" onClick={changeQuantity("inc")}>
+              +
+            </div>
+          </div>
+          <div onClick={addToCart} className="flex justify-between bg-primary text-white rounded-md p-2 gap-2 col-span-6 cursor-pointer">
+            <div>Add To Cart</div>
+            <div>{(price * quantity).toFixed(3)}</div>
+          </div>
+        </div>
       </div>
 
       {/* fixed parts */}
@@ -90,7 +134,7 @@ export default function ProductDetail(props) {
       >
         <FaArrowLeft />
       </div>
-      <Link href="/cart">
+      {/* <Link href="/cart">
         <a>
           <div className="fixed bottom-1 ml-2 shadow-normal flex justify-between bg-primary w-[96%] sm:w-[32%] text-white p-2 rounded-md">
             <div>8</div>
@@ -98,7 +142,7 @@ export default function ProductDetail(props) {
             <div>&#8377;200</div>
           </div>
         </a>
-      </Link>
+      </Link> */}
     </>
   );
 }
